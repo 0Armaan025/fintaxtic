@@ -35,9 +35,9 @@ const Navbar = () => {
         <Link href="/#pricing" className="hover:text-gray-900 transition">
           Pricing
         </Link>
-        <a href="#" className="hover:text-gray-900 transition">
+        <Link href="/contact" className="hover:text-gray-900 transition">
           Contact
-        </a>
+        </Link>
         <button className="bg-black cursor-pointer px-4 py-2 rounded-lg text-white hover:bg-gray-800 transition">
           Dashboard
         </button>
