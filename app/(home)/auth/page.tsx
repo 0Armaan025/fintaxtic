@@ -56,7 +56,7 @@ export default function AuthPage() {
         if (loginRes.error) throw new Error(loginRes.error);
         router.push("/dashboard");
       }
-    } catch (err: string) {
+    } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
