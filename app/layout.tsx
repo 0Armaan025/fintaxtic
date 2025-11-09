@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Fintaxtic",
+  icons: {
+    icon: "/favico.ico",
+  },
   description: "Future founders challenge",
 };
 

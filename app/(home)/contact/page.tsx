@@ -7,28 +7,36 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // You can replace this with your own backend email API
     try {
-      const res = await fetch("/api/contact", {
+      // 🔥 Send data to MongoDB route
+      const res = await fetch("/api/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          msg: form.message,
+        }),
       });
 
       if (res.ok) {
         setSubmitted(true);
         setForm({ name: "", email: "", message: "" });
+      } else {
+        const errData = await res.json();
+        alert(errData.error || "Something went wrong 💀");
       }
     } catch (err) {
       console.error("Error sending message", err);
+      alert("⚠️ Couldn't send message. Check console.");
     }
 
     setLoading(false);
@@ -101,7 +109,7 @@ export default function ContactPage() {
 
         <div className="mt-8 flex justify-center">
           <a
-            href="https://wa.me/919876543210" // Replace with your WhatsApp number (with country code)
+            href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NO}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-full hover:bg-green-600 transition"

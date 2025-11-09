@@ -38,9 +38,11 @@ const Navbar = () => {
         <Link href="/contact" className="hover:text-gray-900 transition">
           Contact
         </Link>
-        <button className="bg-black cursor-pointer px-4 py-2 rounded-lg text-white hover:bg-gray-800 transition">
-          Dashboard
-        </button>
+        <Link href="/dashboard">
+          <button className="bg-black cursor-pointer px-4 py-2 rounded-lg text-white hover:bg-gray-800 transition">
+            Dashboard
+          </button>
+        </Link>
       </nav>
 
       {/* Mobile Menu Button */}

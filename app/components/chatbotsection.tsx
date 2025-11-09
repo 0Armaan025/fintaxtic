@@ -1,26 +1,46 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 
 export default function ChatbotSection() {
   const [messages, setMessages] = useState([
     {
       role: "bot",
-      text: "👋 Hey! I’m Fintaxtic Assistant. Ask me anything about finance, tax, or investments.",
+      text: "👋 Hey! I’m Fintaxtic Assistant. You can ask up to 5 finance-related questions for free.",
     },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [remaining, setRemaining] = useState(5);
+
+  // Load remaining count from cookies
+  useEffect(() => {
+    const savedCount = Cookies.get("chatCount");
+    if (savedCount) setRemaining(5 - parseInt(savedCount));
+  }, []);
 
   const handleSend = async (e: any) => {
     e.preventDefault();
     if (!input.trim()) return;
 
+    const usedCount = 5 - remaining;
+    if (usedCount >= 5) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "bot",
+          text: "🚫 You’ve hit the 5-message free limit. Upgrade to Pro for unlimited chats!",
+        },
+      ]);
+      return;
+    }
+
     const userMessage = { role: "user", text: input.trim() };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
 
-    // ❌ Block unrelated topics
+    // Only finance questions allowed
     const financeKeywords = [
       "tax",
       "finance",
@@ -51,7 +71,6 @@ export default function ChatbotSection() {
     setLoading(true);
 
     try {
-      // 🧩 Replace this with your actual Gemini API call
       const response = await fetch("/api/gemini", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -61,14 +80,17 @@ export default function ChatbotSection() {
       });
 
       const data = await response.json();
-      console.log(data);
-      console.log(data.reply);
       const reply =
         data.reply ||
-        "Sorry, I couldn’t fetch that right now. Try again later.";
+        "⚠️ Sorry, I couldn’t fetch that right now. Try again later.";
 
       setMessages((prev) => [...prev, { role: "bot", text: reply }]);
-    } catch (error: any) {
+
+      // Update count
+      const newUsed = usedCount + 1;
+      Cookies.set("chatCount", String(newUsed), { expires: 7 });
+      setRemaining(5 - newUsed);
+    } catch (error) {
       setMessages((prev) => [
         ...prev,
         { role: "bot", text: "⚠️ Error connecting to Gemini API." },
@@ -81,8 +103,11 @@ export default function ChatbotSection() {
   return (
     <div className="flex flex-col h-[80vh] max-w-3xl mx-auto border border-gray-200 rounded-2xl bg-white shadow-sm">
       {/* Header */}
-      <div className="border-b border-gray-100 p-4 font-semibold text-gray-800">
-        Fintaxtic Chatbot
+      <div className="border-b border-gray-100 p-4 flex justify-between items-center">
+        <h2 className="font-semibold text-gray-800">Fintaxtic Chatbot</h2>
+        <p className="text-sm text-gray-500">
+          💬 {remaining} / 5 messages left
+        </p>
       </div>
 
       {/* Chat Window */}
@@ -120,16 +145,28 @@ export default function ChatbotSection() {
           placeholder="Ask about tax, finance, investments..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-900"
+          disabled={remaining <= 0}
+          className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-900 disabled:bg-gray-100 disabled:cursor-not-allowed"
         />
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || remaining <= 0}
           className="px-5 py-2 bg-black text-white rounded-full hover:bg-gray-800 transition disabled:opacity-50"
         >
           Send
         </button>
       </form>
+
+      {/* Upgrade CTA */}
+      {remaining <= 0 && (
+        <div className="text-center p-4 border-t text-sm bg-gray-50">
+          🚀 You’ve used your free messages.{" "}
+          <span className="font-semibold text-gray-900 cursor-pointer hover:underline">
+            Upgrade to Pro
+          </span>{" "}
+          for unlimited access.
+        </div>
+      )}
     </div>
   );
 }

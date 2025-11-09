@@ -11,28 +11,22 @@ const poppins = Poppins({
 
 const features = [
   {
-    title: "Smart Analytics",
+    title: "Advanced chatbot",
     description:
-      "Track spending patterns, set budgets, and get insights that actually make sense — no boring charts.",
+      "We use the gemini api and advanced data system to answer your questions :)",
     icon: <BarChart3 className="w-8 h-8 text-indigo-600" />,
   },
   {
-    title: "Secure Transactions",
+    title: "Sessions on financial info",
     description:
-      "Your financial data stays encrypted and protected. We take security as seriously as your wallet does.",
+      "We provide information about financial things to you with recorded videos/lectures.",
     icon: <ShieldCheck className="w-8 h-8 text-indigo-600" />,
   },
   {
-    title: "Instant Sync",
+    title: "Tax reducer system",
     description:
-      "Connect accounts and see everything in real time. No more spreadsheets or manual entry pain.",
+      "We allow you to check what your tax will be after reduction using Indian policies!",
     icon: <Zap className="w-8 h-8 text-indigo-600" />,
-  },
-  {
-    title: "Smart Wallet Integration",
-    description:
-      "Easily manage your digital wallets, automate payments, and never miss a bill again.",
-    icon: <Wallet className="w-8 h-8 text-indigo-600" />,
   },
 ];
 

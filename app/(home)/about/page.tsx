@@ -5,21 +5,21 @@ import Image from "next/image";
 export default function About() {
   const team = [
     {
-      name: "duo",
-      position: "Founder & Developer",
-      quote: "Turning caffeine into code and ideas into reality.",
+      name: "SAMARPRATAP SINGH DHALIWAL",
+      position: "CEO and Founder",
+      quote: "Visionary leader driving product strategy and market entry.",
       image: "/team1.jpg",
     },
     {
-      name: "Riya Mehta",
-      position: "UI/UX Designer",
+      name: "HITEN SINGLA",
+      position: "Co-Founder",
       quote: "Design is intelligence made visible.",
       image: "/team2.jpg",
     },
     {
-      name: "Aarav Patel",
-      position: "Marketing Head",
-      quote: "Connecting innovation with people who need it.",
+      name: "AYUSH AGGARWAL",
+      position: "Co-Founder",
+      quote: "Expert in system design in Fintaxtic",
       image: "/team3.jpg",
     },
   ];
@@ -30,10 +30,8 @@ export default function About() {
       <section className="text-center max-w-3xl mx-auto mb-16">
         <h1 className="text-4xl font-bold mb-4">About Us</h1>
         <p className="text-lg text-gray-600">
-          We’re a small, dedicated team passionate about building simple yet
-          powerful digital tools. Every pixel, every line of code — crafted with
-          precision and purpose. Our mission is to simplify technology so
-          creators can focus on what truly matters.
+          We{"'"}re a small team of people who actually want change and help
+          people by reducing their taxes and gain some financial information :)
         </p>
       </section>
 

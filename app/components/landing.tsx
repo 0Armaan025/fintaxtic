@@ -43,10 +43,12 @@ const Landing = () => {
           transition={{ delay: 0.4, duration: 0.6 }}
           className="flex space-x-4"
         >
-         <Link href="/dashboard"> <button className="px-6 py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-all">
-            Dashboard
-          </button>
-         </Link>
+          <Link href="/dashboard">
+            {" "}
+            <button className="px-6 py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-all">
+              Dashboard
+            </button>
+          </Link>
           <Link href="/about">
             <button className="px-6 py-3 border border-gray-400 text-gray-700 font-medium rounded-lg hover:bg-gray-100 transition-all">
               About
@@ -59,10 +61,13 @@ const Landing = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
-          className="mt-16 w-full max-w-4xl h-64 bg-gray-100 border border-gray-200 rounded-2xl flex items-center justify-center"
+          className="mt-16 w-full max-w-[85rem] h-full cursor-pointer transition-all hover:scale-105 max-h-[38rem] bg-gray-100 border border-gray-200 rounded-2xl flex items-center justify-center"
         >
           <p className="text-gray-400 font-medium">
-            [ Illustration or Dashboard Preview ]
+            <img
+              src="./dashboard.png"
+              className="w-[80rem] h-[30rem] rounded-lg m-4"
+            />
           </p>
         </motion.div>
       </main>

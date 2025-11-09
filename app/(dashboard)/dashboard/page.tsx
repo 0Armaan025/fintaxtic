@@ -4,9 +4,10 @@ import ChatbotSection from "@/app/components/chatbotsection";
 import ProfileSection from "@/app/components/profile";
 import Link from "next/link";
 import { useState } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { Menu } from "lucide-react";
+import TaxReducer from "@/app/components/taxreducer";
 
 export default function DashboardPage() {
   const [active, setActive] = useState("Profile");
@@ -46,8 +47,9 @@ export default function DashboardPage() {
       >
         <div>
           <div className="p-6 border-b border-gray-100 hidden md:block">
-            <h1 className="text-xl font-semibold text-gray-800">Fintaxtic</h1>
-          </div>
+<Link href="/">            <h1 className="text-xl font-semibold text-gray-800">Fintaxtic</h1>
+</Link> 
+</div>
           <nav className="mt-6">
             {menuItems.map((item) => (
               <button
@@ -99,21 +101,24 @@ export default function DashboardPage() {
 
         {active === "Tax Reducer" && (
           <div className="text-gray-600">
-            <p>
-              Use our tools and recommendations to reduce your taxable income.
-            </p>
+            <TaxReducer />
           </div>
         )}
 
         {active === "Sessions" && (
           <div className="text-gray-600">
-            <p>Your recent sessions will appear here.</p>
+            <p>Videos by the team will appear here (im still waiting Hiten).</p>
           </div>
         )}
 
         {active === "Logout" && (
           <div className="text-gray-600">
-            <p>You have been logged out successfully.</p>
+            <button
+              className="bg-red-500 px-4 py-2 text-white rounded-lg"
+              onClick={() => signOut()}
+            >
+              Log out
+            </button>
           </div>
         )}
       </main>

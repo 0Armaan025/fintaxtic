@@ -1,15 +1,96 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 export default function ProfileSection() {
-  const [name, setName] = useState("Armaan");
+  const [email, setEmail] = useState(""); // temporary hardcoded; ideally from session
+  //fixed
+  const [name, setName] = useState("");
+  const [plan, setPlan] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [plan, setPlan] = useState("Free Plan");
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState("");
 
-  const handleSave = () => {
-    setIsEditing(false);
-    // pretend to save (API call can go here)
+  const { data: session, status } = useSession();
+
+  if (!session) {
+    return <p>please log in!</p>;
+  }
+
+  // 🔹 Fetch user data on mount
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        console.log(session?.user);
+        console.log(session?.user?.email);
+        if (session?.user?.email) {
+          setEmail(session.user.email);
+        }
+        const res = await fetch(`/api/profile?email=${session?.user?.email}`);
+        const data = await res.json();
+
+        if (data.user) {
+          setName(data.user.name);
+          setPlan(data.user.plan);
+        } else {
+          setMsg("User not found");
+        }
+      } catch (err) {
+        setMsg("Error fetching profile");
+      }
+    };
+    fetchProfile();
+  }, [session]);
+
+  // 🔹 Save updated profile
+  const handleSave = async () => {
+    setLoading(true);
+    setMsg("");
+    try {
+      const res = await fetch("/api/profile", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, name, plan }),
+      });
+
+      const data = await res.json();
+      if (data.user) {
+        setMsg("✅ Profile updated successfully!");
+        setIsEditing(false);
+      } else {
+        setMsg("⚠️ Failed to update profile.");
+      }
+    } catch (err) {
+      setMsg("❌ Error saving profile");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 🔹 Upgrade plan
+  const handleUpgrade = async () => {
+    setLoading(true);
+    setMsg("");
+    try {
+      const res = await fetch("/api/profile", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, plan: "Pro Plan", planType: "pro 1" }),
+      });
+
+      const data = await res.json();
+      if (data.user) {
+        setPlan(data.user.plan);
+        setMsg("🚀 Plan upgraded!");
+      } else {
+        setMsg("⚠️ Failed to upgrade plan.");
+      }
+    } catch (err) {
+      setMsg("❌ Error upgrading plan");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -24,7 +105,7 @@ export default function ProfileSection() {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            disabled={!isEditing}
+            disabled={!isEditing || loading}
             className={`flex-1 px-3 py-2 border rounded-lg focus:outline-none ${
               isEditing
                 ? "border-gray-400 focus:ring-2 focus:ring-gray-900"
@@ -34,6 +115,7 @@ export default function ProfileSection() {
           {!isEditing ? (
             <button
               onClick={() => setIsEditing(true)}
+              disabled={loading}
               className="text-sm px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition"
             >
               Edit
@@ -41,9 +123,10 @@ export default function ProfileSection() {
           ) : (
             <button
               onClick={handleSave}
+              disabled={loading}
               className="text-sm px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition"
             >
-              Save
+              {loading ? "Saving..." : "Save"}
             </button>
           )}
         </div>
@@ -55,19 +138,35 @@ export default function ProfileSection() {
         <div className="flex items-center justify-between border border-gray-200 rounded-lg p-3">
           <span className="font-medium text-gray-800">{plan}</span>
           <button
-            onClick={() => setPlan("Pro Plan")}
+            onClick={handleUpgrade}
+            disabled={loading || plan === "Pro Plan"}
             className="text-sm px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition"
           >
-            Upgrade Plan
+            {plan === "Pro Plan" ? "Upgraded" : "Upgrade Plan"}
           </button>
         </div>
       </div>
 
-      {/* Additional Info */}
-      <div className="text-sm text-gray-500">
+      {/* Message / Info */}
+      {msg && (
+        <div
+          className={`text-sm mt-3 ${
+            msg.includes("✅") || msg.includes("🚀")
+              ? "text-green-600"
+              : msg.includes("❌")
+                ? "text-red-600"
+                : "text-gray-600"
+          }`}
+        >
+          {msg}
+        </div>
+      )}
+
+      {/* Info */}
+      <div className="text-sm text-gray-500 mt-4">
         <p>
           Manage your profile details and subscription plan. Upgrading unlocks
-          premium tax optimization features.
+          premium features.
         </p>
       </div>
     </div>

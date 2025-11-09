@@ -51,6 +51,7 @@ const plans = [
 const Pricing = () => {
   return (
     <section
+      id="pricing"
       className={`py-20 px-6 bg-white border-[1.5px] border-gray-700 text-gray-800 ${poppins.className}`}
     >
       <div className="max-w-6xl mx-auto text-center mb-14">
