@@ -61,6 +61,8 @@ export default function ChatbotSection() {
       });
 
       const data = await response.json();
+      console.log(data);
+      console.log(data.reply);
       const reply =
         data.reply ||
         "Sorry, I couldn’t fetch that right now. Try again later.";

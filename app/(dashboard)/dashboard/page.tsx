@@ -4,11 +4,15 @@ import ChatbotSection from "@/app/components/chatbotsection";
 import ProfileSection from "@/app/components/profile";
 import Link from "next/link";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 import { Menu } from "lucide-react";
 
 export default function DashboardPage() {
   const [active, setActive] = useState("Profile");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const { data: session, status } = useSession();
 
   const menuItems = [
     { name: "Profile" },
@@ -17,6 +21,9 @@ export default function DashboardPage() {
     { name: "Sessions" },
     { name: "Logout" },
   ];
+
+  if (status === "loading") return <p>Loading....</p>;
+  if (!session) redirect("/auth");
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-gray-50">
