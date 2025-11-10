@@ -112,7 +112,10 @@ export default function ProfileSection() {
                 : "border-gray-200 bg-gray-100 cursor-not-allowed"
             }`}
           />
-          {!isEditing ? (
+        </div>
+        <br />
+        {!isEditing ? (
+          <>
             <button
               onClick={() => setIsEditing(true)}
               disabled={loading}
@@ -120,16 +123,16 @@ export default function ProfileSection() {
             >
               Edit
             </button>
-          ) : (
-            <button
-              onClick={handleSave}
-              disabled={loading}
-              className="text-sm px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition"
-            >
-              {loading ? "Saving..." : "Save"}
-            </button>
-          )}
-        </div>
+          </>
+        ) : (
+          <button
+            onClick={handleSave}
+            disabled={loading}
+            className="text-sm px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition"
+          >
+            {loading ? "Saving..." : "Save"}
+          </button>
+        )}
       </div>
 
       {/* Plan Info */}

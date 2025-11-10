@@ -47,9 +47,11 @@ export default function DashboardPage() {
       >
         <div>
           <div className="p-6 border-b border-gray-100 hidden md:block">
-<Link href="/">            <h1 className="text-xl font-semibold text-gray-800">Fintaxtic</h1>
-</Link> 
-</div>
+            <Link href="/">
+              {" "}
+              <h1 className="text-xl font-semibold text-gray-800">Fintaxtic</h1>
+            </Link>
+          </div>
           <nav className="mt-6">
             {menuItems.map((item) => (
               <button
@@ -107,7 +109,7 @@ export default function DashboardPage() {
 
         {active === "Sessions" && (
           <div className="text-gray-600">
-            <p>Videos by the team will appear here (im still waiting Hiten).</p>
+            <p>Videos by the team will appear here.</p>
           </div>
         )}
 

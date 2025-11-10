@@ -3,26 +3,27 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const { prompt } = await req.json();
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) throw new Error("Missing API key");
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) throw new Error("Missing Groq API key");
 
-    const model = "gemini-2.5-pro"; // use correct model
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+    const url = "https://api.groq.com/openai/v1/chat/completions";
+    const model = "llama-3.1-8b-instant"; // solid, fast, and free (for now)
 
     const res = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-goog-api-key": apiKey,
+        Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
+        model,
+        messages: [{ role: "user", content: prompt }],
       }),
     });
 
     if (!res.ok) {
       const errorText = await res.text();
-      console.error("Gemini API error:", errorText);
+      console.error("Groq API error:", errorText);
       return NextResponse.json(
         { reply: "Error: " + errorText },
         { status: res.status },
@@ -30,8 +31,7 @@ export async function POST(req: Request) {
     }
 
     const data = await res.json();
-    const reply =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
+    const reply = data?.choices?.[0]?.message?.content || "No response";
 
     return NextResponse.json({ reply });
   } catch (error: any) {

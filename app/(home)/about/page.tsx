@@ -51,7 +51,7 @@ export default function About() {
                   src={member.image}
                   alt={member.name}
                   fill
-                  className="object-cover"
+                  className="object-top object-cover"
                 />
               </div>
               <h3 className="text-xl font-semibold">{member.name}</h3>

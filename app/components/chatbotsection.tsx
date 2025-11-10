@@ -7,17 +7,17 @@ export default function ChatbotSection() {
   const [messages, setMessages] = useState([
     {
       role: "bot",
-      text: "👋 Hey! I’m Fintaxtic Assistant. You can ask up to 5 finance-related questions for free.",
+      text: "👋 Hey! I’m Fintaxtic Assistant. You can ask up to 10 finance-related questions for free.",
     },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [remaining, setRemaining] = useState(5);
+  const [remaining, setRemaining] = useState(10);
 
   // Load remaining count from cookies
   useEffect(() => {
     const savedCount = Cookies.get("chatCount");
-    if (savedCount) setRemaining(5 - parseInt(savedCount));
+    if (savedCount) setRemaining(10 - parseInt(savedCount));
   }, []);
 
   const handleSend = async (e: any) => {
@@ -106,7 +106,7 @@ export default function ChatbotSection() {
       <div className="border-b border-gray-100 p-4 flex justify-between items-center">
         <h2 className="font-semibold text-gray-800">Fintaxtic Chatbot</h2>
         <p className="text-sm text-gray-500">
-          💬 {remaining} / 5 messages left
+          💬 {remaining} / 10 messages left
         </p>
       </div>
 
