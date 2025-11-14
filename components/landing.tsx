@@ -188,10 +188,12 @@ I'm sorry
             controls
             className="w-full"
             onLoadStart={(e) => {
-              e.target.muted = false;
-              e.target.play();
+              const video = e.target as HTMLVideoElement;
+              video.muted = false;
+              video.play();
             }}
           >
+            {" "}
             <source
               src="https://cdn.jsdelivr.net/gh/TheOdinProject/curriculum@main/foundations/javascript_basics/DOM_manipulation_and_events/imgs/02.mp4"
               type="video/mp4"
