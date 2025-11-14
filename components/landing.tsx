@@ -161,15 +161,26 @@ const RickrollLanding = () => {
               ></div>
             </div>
           </div>
-          <textarea
-            value={apologyText}
-            onChange={handleApologyChange}
-            placeholder="I'm sorry
+          
+
+<textarea
+  value={apologyText}
+  onChange={handleApologyChange}
+  onCopy={(e) => e.preventDefault()}
+  onPaste={(e) => e.preventDefault()}
+  onCut={(e) => e.preventDefault()}
+  onDrop={(e) => e.preventDefault()}
+  onKeyDown={(e) => {
+    if (e.ctrlKey && (e.key === "v" || e.key === "c" || e.key === "x")) {
+      e.preventDefault();
+    }
+  }}
+  placeholder="I'm sorry
 I'm sorry
 I'm sorry
 ..."
-            className="w-full h-64 p-4 border-2 border-orange-400 rounded font-mono text-sm resize-none focus:outline-none focus:border-orange-600"
-          />
+  className="w-full h-64 p-4 border-2 border-orange-400 rounded font-mono text-sm resize-none focus:outline-none focus:border-orange-600"
+/>
           {apologyCount >= 1000 && (
             <div className="mt-4 p-4 bg-green-100 border-2 border-green-500 rounded text-center">
               <p className="text-green-700 font-bold text-xl">
