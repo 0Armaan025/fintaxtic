@@ -109,6 +109,11 @@ const Pricing = () => {
           </motion.div>
         ))}
       </div>
+      <center>
+        <button className="px-6 py-2 text-white bg-black rounded-lg text-center cursor-pointer transition-all hover:bg-black/80 mt-12">
+          Learn more!
+        </button>
+      </center>
     </section>
   );
 };

@@ -1,75 +1,56 @@
 "use client";
-import React from "react";
-import { Poppins } from "next/font/google";
-import { motion } from "framer-motion";
-import Link from "next/link";
+import React, { useEffect, useRef } from "react";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-});
+const RickrollLanding = () => {
+  const audioRef = useRef(null);
 
-const Landing = () => {
+  useEffect(() => {
+    // Auto-play audio when component mounts
+    if (audioRef.current) {
+      audioRef.current.play().catch((err) => {
+        console.log("Autoplay prevented:", err);
+      });
+    }
+  }, []);
+
   return (
-    <div
-      className={`min-h-screen flex flex-col bg-white text-gray-800 ${poppins.className}`}
-    >
-      {/* Hero Section */}
-      <main className="flex flex-col items-center justify-center flex-grow text-center px-6">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight"
-        >
-          Finance. Simplified.
-        </motion.h1>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-black">
+      {/* Hidden audio element */}
+      <audio ref={audioRef} loop className="hidden">
+        <source
+          src="https://cdn.jsdelivr.net/gh/TheOdinProject/curriculum@main/foundations/javascript_basics/DOM_manipulation_and_events/imgs/02.mp3"
+          type="audio/mpeg"
+        />
+      </audio>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="text-base sm:text-lg md:text-xl text-gray-500 mb-8 max-w-xl leading-relaxed"
-        >
-          Fintaxtic helps you track, analyze, and optimize your money — effortlessly and intelligently.
-        </motion.p>
+      {/* Rickroll Video */}
+      <div className="w-full max-w-4xl px-4">
+        <div className="relative" style={{ paddingBottom: "56.25%" }}>
+          <iframe
+            className="absolute top-0 left-0 w-full h-full rounded-lg shadow-2xl"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=0&loop=1&playlist=dQw4w9WgXcQ&controls=0"
+            title="Never Gonna Give You Up"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+      </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="flex flex-wrap justify-center gap-4"
-        >
-          <Link href="/dashboard">
-            <button className="px-6 py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-all">
-              Dashboard
-            </button>
-          </Link>
-          <Link href="/about">
-            <button className="px-6 py-3 border border-gray-400 text-gray-700 font-medium rounded-lg hover:bg-gray-100 transition-all">
-              About
-            </button>
-          </Link>
-        </motion.div>
+      {/* Classic Rickroll Text */}
+      <div className="mt-8 text-center">
+        <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 animate-pulse">
+          Never Gonna Give You Up
+        </h1>
+        <p className="text-xl md:text-2xl text-gray-300">
+          You just got rickrolled! 🎵
+        </p>
+      </div>
 
-        {/* Illustration */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="mt-16 w-full max-w-6xl px-4"
-        >
-          <div className="w-full bg-gray-100 border border-gray-200 rounded-2xl overflow-hidden flex items-center justify-center shadow-sm">
-            <img
-              src="/dashboard.png"
-              alt="Dashboard Preview"
-              className="w-full h-auto object-contain rounded-lg transition-transform duration-300 hover:scale-105"
-            />
-          </div>
-        </motion.div>
-      </main>
+      {/* Dancing Emoji */}
+      <div className="mt-8 text-6xl animate-bounce">🕺</div>
     </div>
   );
 };
 
-export default Landing;
+export default RickrollLanding;
