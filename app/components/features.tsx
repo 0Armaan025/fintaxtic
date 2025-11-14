@@ -13,7 +13,7 @@ const features = [
   {
     title: "Advanced chatbot",
     description:
-      "We use the gemini api and advanced data system to answer your questions :)",
+      "We use the gemini api and advanced data system to answer your questions.",
     icon: <BarChart3 className="w-8 h-8 text-indigo-600" />,
   },
   {
