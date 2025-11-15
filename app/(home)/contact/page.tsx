@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaWhatsapp } from "react-icons/fa";
+
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -146,7 +146,7 @@ export default function ContactPage() {
             target="_blank"
             className="inline-flex items-center gap-2 bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition"
           >
-            <FaWhatsapp size={20} /> Contact on WhatsApp
+             Contact on WhatsApp
           </a>
         </div>
 
