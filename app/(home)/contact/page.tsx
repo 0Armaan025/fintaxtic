@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -16,7 +17,6 @@ export default function ContactPage() {
     setLoading(true);
 
     try {
-      // 🔥 Send data to MongoDB route
       const res = await fetch("/api/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -43,53 +43,54 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center px-4">
-      <div className="max-w-3xl w-full border border-gray-200 rounded-2xl shadow-sm p-8">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-          Get in Touch
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <div className="max-w-3xl w-full bg-white border border-gray-200 rounded-2xl shadow p-8">
+
+        {/* ================= HEADER ================= */}
+        <h2 className="text-3xl font-semibold text-gray-900 mb-2">
+          Contact Us
         </h2>
-        <p className="text-sm text-gray-500 mb-6">
-          Have any queries or need help with taxes? Send us a message — we’ll get
-          back soon.
+        <p className="text-sm text-gray-600 mb-6">
+          Need help with taxes or want to reach our Chartered Accountant team?
+          Send us a message or contact our CA directly below.
         </p>
 
+        {/* ================= FORM ================= */}
         {!submitted ? (
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm text-gray-600 mb-1">Name</label>
+              <label className="block text-sm text-gray-700 mb-1">Name</label>
               <input
                 type="text"
                 name="name"
                 value={form.name}
                 onChange={handleChange}
                 required
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-black"
               />
             </div>
 
             <div>
-              <label className="block text-sm text-gray-600 mb-1">Email</label>
+              <label className="block text-sm text-gray-700 mb-1">Email</label>
               <input
                 type="email"
                 name="email"
                 value={form.email}
                 onChange={handleChange}
                 required
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-black"
               />
             </div>
 
             <div>
-              <label className="block text-sm text-gray-600 mb-1">
-                Message
-              </label>
+              <label className="block text-sm text-gray-700 mb-1">Message</label>
               <textarea
                 name="message"
                 value={form.message}
                 onChange={handleChange}
                 required
                 rows={4}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900 resize-none"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-black resize-none"
               />
             </div>
 
@@ -102,24 +103,52 @@ export default function ContactPage() {
             </button>
           </form>
         ) : (
-          <div className="text-center text-gray-700 py-8">
+          <div className="text-center text-green-600 text-lg py-6">
             ✅ Thanks for reaching out! We’ll get back to you shortly.
           </div>
         )}
 
-        {/* ===================== CA CONTACT SECTION ===================== */}
-        <div className="mt-10 text-center text-gray-700">
-          <p className="font-semibold mb-3 text-lg">
-            Chartered Accountant Contact Numbers
+        {/* ================= CA CONTACT SECTION ================= */}
+        <div className="mt-10">
+          <p className="font-semibold text-xl text-gray-900 mb-4">
+            Chartered Accountant Contact Options
           </p>
 
-          <div className="space-y-2 text-base">
-            <p>📞 9463411557</p>
-            <p>📞 8847511401</p>
-            <p>📞 6284273711</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* Contact 1 */}
+            <div className="border border-gray-200 rounded-xl p-4 text-center shadow-sm hover:shadow-md transition">
+              <p className="text-sm text-gray-500">Contact 1</p>
+              <p className="text-lg font-medium text-gray-800">📞 9463411557</p>
+            </div>
+
+            {/* Contact 2 */}
+            <div className="border border-gray-200 rounded-xl p-4 text-center shadow-sm hover:shadow-md transition">
+              <p className="text-sm text-gray-500">Contact 2</p>
+              <p className="text-lg font-medium text-gray-800">📞 8847511401</p>
+            </div>
+
+            {/* Contact 3 */}
+            <div className="border border-gray-200 rounded-xl p-4 text-center shadow-sm hover:shadow-md transition">
+              <p className="text-sm text-gray-500">Contact 3</p>
+              <p className="text-lg font-medium text-gray-800">📞 6284273711</p>
+            </div>
           </div>
         </div>
-        {/* =============================================================== */}
+
+        {/* ================= SUPPORT BUSINESS WHATSAPP ================= */}
+        <div className="mt-10 text-center">
+          <p className="text-md font-semibold text-gray-700 mb-3">
+            Customer Support (Business WhatsApp)
+          </p>
+
+          <a
+            href="https://wa.me/919463411557"
+            target="_blank"
+            className="inline-flex items-center gap-2 bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition"
+          >
+            <FaWhatsapp size={20} /> Contact on WhatsApp
+          </a>
+        </div>
 
       </div>
     </div>
