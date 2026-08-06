@@ -8,6 +8,10 @@ import { useSession, signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { Menu } from "lucide-react";
 import TaxReducer from "@/app/components/taxreducer";
+import TaxOptimizer from "@/app/(home)/tax-optimizer/page";
+import TaxSuite from "@/app/(home)/fm-toolbox/page";
+import ConnectCaPage from "@/app/(home)/connect-ca/page"; // Adjust import path if needed
+import EnhancedTaxLearningPage from "@/app/(home)/tax-learning/page";
 
 export default function DashboardPage() {
   const [active, setActive] = useState("Profile");
@@ -19,6 +23,10 @@ export default function DashboardPage() {
     { name: "Profile" },
     { name: "Chatbot" },
     { name: "Tax Reducer" },
+    { name: "Tax Optimizer" },
+    { name: "Tax Learning" },
+    { name: "FM Toolbox" },
+    { name: "Connect CA" },
     { name: "Sessions" },
     { name: "Logout" },
   ];
@@ -41,14 +49,12 @@ export default function DashboardPage() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed md:static z-20 top-0 left-0 h-full md:h-auto w-64 bg-white border-r border-gray-200 flex flex-col justify-between transform transition-transform duration-300 ease-in-out ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-        }`}
+        className={`fixed md:static z-20 top-0 left-0 h-full md:h-auto w-64 bg-white border-r border-gray-200 flex flex-col justify-between transform transition-transform duration-300 ease-in-out ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+          }`}
       >
         <div>
           <div className="p-6 border-b border-gray-100 hidden md:block">
             <Link href="/">
-              {" "}
               <h1 className="text-xl font-semibold text-gray-800">Fintaxtic</h1>
             </Link>
           </div>
@@ -60,13 +66,14 @@ export default function DashboardPage() {
                   setActive(item.name);
                   setSidebarOpen(false);
                 }}
-                className={`w-full text-left px-6 py-3 text-sm font-medium transition ${
-                  active === item.name
-                    ? "bg-gray-900 text-white"
+                className={`w-full text-left px-6 py-3 text-sm font-medium transition ${active === item.name
+                  ? "bg-gray-900 text-white"
+                  : item.name === "Connect CA"
+                    ? "text-red-600 font-semibold hover:bg-red-50"
                     : "text-gray-700 hover:bg-gray-100"
-                }`}
+                  }`}
               >
-                {item.name}
+                {item.name === "Connect CA" ? " Emergency CA" : item.name}
               </button>
             ))}
           </nav>
@@ -104,6 +111,26 @@ export default function DashboardPage() {
         {active === "Tax Reducer" && (
           <div className="text-gray-600">
             <TaxReducer />
+          </div>
+        )}
+        {active === "Tax Learning" && (
+          <div className="text-gray-600">
+            <EnhancedTaxLearningPage />
+          </div>
+        )}
+        {active === "Tax Optimizer" && (
+          <div className="text-gray-600">
+            <TaxOptimizer />
+          </div>
+        )}
+        {active === "FM Toolbox" && (
+          <div className="text-gray-600">
+            <TaxSuite />
+          </div>
+        )}
+        {active === "Connect CA" && (
+          <div>
+            <ConnectCaPage />
           </div>
         )}
 
