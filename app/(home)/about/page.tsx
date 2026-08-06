@@ -31,7 +31,7 @@ export default function About() {
         <h1 className="text-4xl font-bold mb-4">About Us</h1>
         <p className="text-lg text-gray-600">
           We{"'"}re a small team of people who actually want change and help
-          people by reducing their taxes and gain some financial information :)
+          people by reducing their taxes and gain some financial information.
         </p>
       </section>
 
