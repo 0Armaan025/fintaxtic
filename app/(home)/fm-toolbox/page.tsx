@@ -214,7 +214,7 @@ const parseDocumentTextLocal = (rawText: string): ParsedTaxData => {
     reader.onload = (event) => {
       const text = event.target.result;
       setTimeout(() => {
-        const parsed = parseDocumentTextLocal(text);
+        const parsed = parseDocumentTextLocal(text as string);
         setDocParsedResult(parsed);
 
         setFormData((prev) => ({
