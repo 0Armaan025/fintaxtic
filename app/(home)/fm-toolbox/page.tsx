@@ -90,8 +90,17 @@ const calculateNewRegimeTax = (grossIncome) => {
 };
 
 // Document Parsing Engine
-const parseDocumentTextLocal = (rawText) => {
-  const extracted = {};
+interface ParsedTaxData {
+  pan?: string;
+  grossSalary?: number;
+  sec80c?: number;
+  sec80d?: number;
+  hra?: number;
+  basicPay?: number;
+}
+
+const parseDocumentTextLocal = (rawText: string): ParsedTaxData => {
+  const extracted: ParsedTaxData = {};
 
   const panMatch = rawText.match(/[A-Z]{5}[0-9]{4}[A-Z]{1}/);
   if (panMatch) extracted.pan = panMatch[0];
@@ -99,36 +108,22 @@ const parseDocumentTextLocal = (rawText) => {
   const salaryMatch = rawText.match(
     /(?:Gross Salary|Total Salary|Gross Income|Gross Amount)[:\s]*₹?\s*([0-9,]+)/i
   );
-  if (salaryMatch)
-    extracted.grossSalary = parseFloat(salaryMatch[1].replace(/,/g, ""));
+  if (salaryMatch) extracted.grossSalary = parseFloat(salaryMatch[1].replace(/,/g, ""));
 
-  const sec80cMatch = rawText.match(
-    /(?:80C|PF|ELSS|Life Insurance)[:\s]*₹?\s*([0-9,]+)/i
-  );
-  if (sec80cMatch)
-    extracted.sec80c = parseFloat(sec80cMatch[1].replace(/,/g, ""));
+  const sec80cMatch = rawText.match(/(?:80C|PF|ELSS|Life Insurance)[:\s]*₹?\s*([0-9,]+)/i);
+  if (sec80cMatch) extracted.sec80c = parseFloat(sec80cMatch[1].replace(/,/g, ""));
 
-  const sec80dMatch = rawText.match(
-    /(?:80D|Medical|Health Insurance)[:\s]*₹?\s*([0-9,]+)/i
-  );
-  if (sec80dMatch)
-    extracted.sec80d = parseFloat(sec80dMatch[1].replace(/,/g, ""));
+  const sec80dMatch = rawText.match(/(?:80D|Medical|Health Insurance)[:\s]*₹?\s*([0-9,]+)/i);
+  if (sec80dMatch) extracted.sec80d = parseFloat(sec80dMatch[1].replace(/,/g, ""));
 
-  const hraMatch = rawText.match(
-    /(?:HRA|House Rent Allowance)[:\s]*₹?\s*([0-9,]+)/i
-  );
+  const hraMatch = rawText.match(/(?:HRA|House Rent Allowance)[:\s]*₹?\s*([0-9,]+)/i);
   if (hraMatch) extracted.hra = parseFloat(hraMatch[1].replace(/,/g, ""));
 
-  const basicMatch = rawText.match(
-    /(?:Basic Pay|Basic Salary)[:\s]*₹?\s*([0-9,]+)/i
-  );
-  if (basicMatch)
-    extracted.basicPay = parseFloat(basicMatch[1].replace(/,/g, ""));
+  const basicMatch = rawText.match(/(?:Basic Pay|Basic Salary)[:\s]*₹?\s*([0-9,]+)/i);
+  if (basicMatch) extracted.basicPay = parseFloat(basicMatch[1].replace(/,/g, ""));
 
   return extracted;
-};
-
-export default function TaxOptimizerApp() {
+}; export default function TaxOptimizerApp() {
   const [activeTab, setActiveTab] = useState("calculator");
 
   // Input Data State
@@ -207,7 +202,7 @@ export default function TaxOptimizerApp() {
 
   // OCR / File Processing State
   const [isProcessingDoc, setIsProcessingDoc] = useState(false);
-  const [docParsedResult, setDocParsedResult] = useState(null);
+  const [docParsedResult, setDocParsedResult] = useState<ParsedTaxData | null>(null);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];

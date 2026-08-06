@@ -317,11 +317,10 @@ Format your response clearly with policy names, descriptions, and amounts.`;
         <div className="flex gap-4 mb-8">
           <button
             onClick={() => setShowCalculator(false)}
-            className={`flex-1 py-3 px-6 rounded-lg font-semibold transition-colors ${
-              !showCalculator
-                ? "bg-black text-white"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            }`}
+            className={`flex-1 py-3 px-6 rounded-lg font-semibold transition-colors ${!showCalculator
+              ? "bg-black text-white"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
           >
             <div className="flex items-center justify-center gap-2">
               <TrendingDown className="w-5 h-5" />
@@ -330,11 +329,10 @@ Format your response clearly with policy names, descriptions, and amounts.`;
           </button>
           <button
             onClick={() => setShowCalculator(true)}
-            className={`flex-1 py-3 px-6 rounded-lg font-semibold transition-colors ${
-              showCalculator
-                ? "bg-black text-white"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            }`}
+            className={`flex-1 py-3 px-6 rounded-lg font-semibold transition-colors ${showCalculator
+              ? "bg-black text-white"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
           >
             <div className="flex items-center justify-center gap-2">
               <DollarSign className="w-5 h-5" />
@@ -507,15 +505,6 @@ Format your response clearly with policy names, descriptions, and amounts.`;
                 </p>
               </div>
 
-              <h3>
-                You can also visit the government webiste here:{" "}
-                <Link
-                  href="http://incometaxindia.gov.in/pages/tools/tax-calculator.aspx/h3"
-                  className="text-blue-500 underline cursor-pointer"
-                >
-                  Tax website
-                </Link>
-              </h3>
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-semibold mb-2">
@@ -539,21 +528,19 @@ Format your response clearly with policy names, descriptions, and amounts.`;
                   <div className="grid grid-cols-2 gap-4">
                     <button
                       onClick={() => setTaxCalc({ ...taxCalc, regime: "new" })}
-                      className={`py-3 px-4 rounded-lg font-semibold transition-colors ${
-                        taxCalc.regime === "new"
-                          ? "bg-black text-white"
-                          : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                      }`}
+                      className={`py-3 px-4 rounded-lg font-semibold transition-colors ${taxCalc.regime === "new"
+                        ? "bg-black text-white"
+                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                        }`}
                     >
                       New Regime
                     </button>
                     <button
                       onClick={() => setTaxCalc({ ...taxCalc, regime: "old" })}
-                      className={`py-3 px-4 rounded-lg font-semibold transition-colors ${
-                        taxCalc.regime === "old"
-                          ? "bg-black text-white"
-                          : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                      }`}
+                      className={`py-3 px-4 rounded-lg font-semibold transition-colors ${taxCalc.regime === "old"
+                        ? "bg-black text-white"
+                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                        }`}
                     >
                       Old Regime
                     </button>

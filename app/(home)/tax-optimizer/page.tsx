@@ -120,7 +120,12 @@ function useTypewriter(text, speed = 14) {
   return out;
 }
 
-function NumberField({ label, value, onChange, hint }) {
+function NumberField({ label, value, onChange, hint }: {
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+  hint?: string;
+}) {
   return (
     <label className="flex flex-col gap-1.5">
       <span
