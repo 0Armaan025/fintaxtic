@@ -1,26 +1,12 @@
 "use client";
 
-import Image from "next/image";
-
 export default function About() {
   const team = [
     {
-      name: "SAMARPRATAP SINGH DHALIWAL",
-      position: "CEO and Founder",
-      quote: "Visionary leader driving product strategy and market entry.",
-      image: "/team1.jpg",
-    },
-    {
-      name: "HITEN SINGLA",
-      position: "Co-Founder",
-      quote: "Design is intelligence made visible.",
-      image: "/team2.jpg",
-    },
-    {
       name: "AYUSH AGGARWAL",
-      position: "Co-Founder",
-      quote: "Expert in system design in Fintaxtic",
-      image: "/team3.jpg",
+      position: "CEO of the company",
+      quote: "Price is what you pay. Value is what you get.",
+      image: "https://i.ibb.co/VcCGD9nB/IMG-20260807-WA0003.jpg",
     },
   ];
 
@@ -68,10 +54,9 @@ export default function About() {
         </p>
       </section>
 
-      {/* Core Pillars Section (Fills layout with value-driven content) */}
+      {/* Core Pillars Section */}
       <section className="max-w-5xl mx-auto mb-24 mt-48">
         <div className="text-center mb-12">
-
           <p className="text-gray-500 text-sm md:text-base mt-2">
             Built to simplify financial management and tax planning for everyone.
           </p>
@@ -102,44 +87,43 @@ export default function About() {
         </div>
       </section>
 
-      {/* Team Section (Uncommented and Styled) */}
-      {/*   <section className="max-w-6xl mx-auto"> */}
-      {/*     <div className="text-center mb-16"> */}
-      {/*       <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-gray-900"> */}
-      {/*         Meet the Minds Behind Fintaxtic */}
-      {/*       </h2> */}
-      {/*       <p className="text-gray-500 text-lg"> */}
-      {/*         Dedicated to simplifying your financial journey. */}
-      {/*       </p> */}
-      {/*     </div> */}
-      {/**/}
-      {/*     <div className="grid grid-cols-1 md:grid-cols-3 gap-10"> */}
-      {/*       {team.map((member) => ( */}
-      {/*         <div */}
-      {/*           key={member.name} */}
-      {/*           className="group flex flex-col items-center text-center bg-white border border-gray-100 rounded-3xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" */}
-      {/*         > */}
-      {/*           <div className="w-40 h-40 mb-6 relative rounded-full overflow-hidden border-4 border-indigo-50 group-hover:border-indigo-100 transition-colors"> */}
-      {/*             <Image */}
-      {/*               src={member.image} */}
-      {/*               alt={member.name} */}
-      {/*               fill */}
-      {/*               className="object-top object-cover" */}
-      {/*             /> */}
-      {/*           </div> */}
-      {/*           <h3 className="text-xl font-bold text-gray-900 mb-1"> */}
-      {/*             {member.name} */}
-      {/*           </h3> */}
-      {/*           <p className="text-sm font-semibold text-indigo-600 mb-4 uppercase tracking-wide"> */}
-      {/*             {member.position} */}
-      {/*           </p> */}
-      {/*           <p className="text-gray-600 italic leading-relaxed"> */}
-      {/*             “{member.quote}” */}
-      {/*           </p> */}
-      {/*         </div> */}
-      {/*       ))} */}
-      {/*     </div> */}
-      {/*   </section> */}
+      {/* Team Section */}
+      <section className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-gray-900">
+            Meet the Minds Behind Fintaxtic
+          </h2>
+          <p className="text-gray-500 text-lg">
+            Dedicated to simplifying your financial journey.
+          </p>
+        </div>
+
+        <div className="flex justify-center">
+          {team.map((member) => (
+            <div
+              key={member.name}
+              className="group flex flex-col items-center text-center bg-white border border-gray-100 rounded-3xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 max-w-sm w-full"
+            >
+              <div className="w-40 h-40 mb-6 relative rounded-full overflow-hidden border-4 border-indigo-50 group-hover:border-indigo-100 transition-colors">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-full h-full object-top object-cover"
+                />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-1">
+                {member.name}
+              </h3>
+              <p className="text-sm font-semibold text-indigo-600 mb-4 uppercase tracking-wide">
+                {member.position}
+              </p>
+              <p className="text-gray-600 italic leading-relaxed">
+                “{member.quote}”
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
