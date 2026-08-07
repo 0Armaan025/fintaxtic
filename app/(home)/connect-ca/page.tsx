@@ -10,7 +10,7 @@ export default function ConnectCaPage() {
   return (
     <div className="max-w-4xl mx-auto py-4 space-y-8">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-red-600 to-red-700 rounded-2xl p-6 md:p-8 text-white shadow-lg">
+      <div className="bg-gradient-to-r rounded-2xl p-6 md:p-8 text-white shadow-lg">
         <div className="flex items-center gap-3 text-red-200 text-sm font-semibold tracking-wide uppercase">
           <PhoneCall className="w-4 h-4 animate-pulse" />
           <span>Emergency Assistance</span>
@@ -28,7 +28,7 @@ export default function ConnectCaPage() {
         {/* Instant Video Call */}
         <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
           <div>
-            <div className="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center mb-4">
+            <div className="w-12 h-12 rounded-xl  text-black flex items-center justify-center mb-4">
               <Video className="w-6 h-6" />
             </div>
             <h2 className="text-xl font-bold text-gray-900">Instant Video Call</h2>
@@ -41,7 +41,7 @@ export default function ConnectCaPage() {
             href={INSTANT_MEET_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 flex items-center justify-center gap-2 w-full text-black bg-red-600 hover:bg-red-700  font-medium py-3 px-4 rounded-xl shadow transition"
+            className="mt-6 flex items-center justify-center gap-2 w-full text-black  font-medium py-3 px-4 rounded-xl shadow transition"
           >
             <span>Join Instant Meeting</span>
             <ExternalLink className="w-4 h-4" />
