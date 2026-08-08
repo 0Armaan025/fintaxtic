@@ -18,10 +18,13 @@ const Navbar = () => {
       className={`relative w-full flex items-center justify-between px-6 sm:px-10 py-4 border-b border-gray-200 bg-white ${poppinsFont.className}`}
     >
       {/* Logo */}
-      <Link href="/" className="flex items-center gap-2">
-        {/* optional logo image */}
-        {/* <img src="/logo.png" alt="logo" className="w-7 h-7" /> */}
-        <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">
+      <Link href="/" className="flex items-center gap-2.5 group">
+        <img
+          src="https://i.ibb.co/hR8DQ5gj/IMG-20260808-WA0003.jpg"
+          alt="Fintaxtic Logo"
+          className="h-7 w-auto object-contain opacity-85 group-hover:opacity-100 transition-opacity"
+        />
+        <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-gray-900">
           Fintaxtic
         </h2>
       </Link>
